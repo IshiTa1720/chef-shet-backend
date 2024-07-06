@@ -1,11 +1,14 @@
 package com.shin.chef.shet.model;
 
- import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.boot.autoconfigure.web.WebProperties;
+
 
 @Entity
 @Table(name = "Meals")
