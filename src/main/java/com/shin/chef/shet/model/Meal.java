@@ -1,13 +1,15 @@
 package com.shin.chef.shet.model;
 
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+import org.springframework.lang.NonNull;
 
 
 @Entity
@@ -16,15 +18,14 @@ import org.springframework.data.annotation.Id;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class Meals {
+public class Meal {
     @Id
     @Column(name = "Food")
-    String food;
+    private String food;
 
     @Column(name = "Type")
-    String type;
+    private String type;
 
     @Column(name = "Estimated Time Needed (min)")
-    int estTime;
+    private int estTime;
 }
