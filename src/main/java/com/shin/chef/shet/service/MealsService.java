@@ -23,7 +23,8 @@ public class MealsService {
     }
 
     public ResponseEntity<Meal> saveMeal(Meal meal){
-        meal.setFood(addPrefix(meal.getType(), meal.getFood()));
+        meal.setFood(addPrefix(meal.getType(), meal.getFood())); //setting the food name with a prefix
+        meal.setType(meal.getType().toUpperCase()); //setting the type of food in uppercase
         mealsRepository.save(meal);
         meal.setFood(meal.getFood().substring(3));
         return new ResponseEntity<Meal>(meal, HttpStatus.CREATED);

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/meal")
 public class MealsController {
 
-    @Autowired
+    @Autowired //@Autowired is used for dependency injection
     private MealsService mealsService;
 
     @PostMapping
