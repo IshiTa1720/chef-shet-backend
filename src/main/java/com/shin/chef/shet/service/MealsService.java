@@ -18,7 +18,7 @@ public class MealsService {
     private MealsRepository mealsRepository; //always start with private unless you need it to be public
 
     private String addPrefix (String type, String name){
-        return switch (TypeEnum.valueOf(type.toUpperCase())) {
+        return switch (TypeEnum.valueOf(type.toUpperCase())) { //TypeEnum is an enum we created with the types of meals
             case BREAKFAST -> "BF-" + name.toUpperCase();
             case LUNCH -> "LN-" + name.toUpperCase();
             case DINNER -> "DN-" + name.toUpperCase();
@@ -35,9 +35,9 @@ public class MealsService {
 
     public ResponseEntity<MealResponse> randomMeal (String type){
         MealResponse mealResponse = new MealResponse();
-        List<Meal> mealList = mealsRepository.findByType(type);
+        List<Meal> mealList = mealsRepository.findByType(type.toUpperCase());
         Meal testMeal = mealList.get(0);
-        mealResponse.setFuud(testMeal.getFood());
+        mealResponse.setFuud(testMeal.getFood().substring(3));
         mealResponse.setEstimatedTime(testMeal.getEstTime());
         return new ResponseEntity<MealResponse>(mealResponse, HttpStatus.OK);
     }
