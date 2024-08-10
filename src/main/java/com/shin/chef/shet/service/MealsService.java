@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class MealsService {
@@ -33,10 +34,15 @@ public class MealsService {
         return new ResponseEntity<Meal>(meal, HttpStatus.CREATED);
     }
 
+    public int random(int len){
+        Random random = new Random();
+        return random.nextInt(len);
+    }
+
     public ResponseEntity<MealResponse> randomMeal (String type){
         MealResponse mealResponse = new MealResponse();
         List<Meal> mealList = mealsRepository.findByType(type.toUpperCase());
-        Meal testMeal = mealList.get(0);
+        Meal testMeal = mealList.get(random(mealList.size()));
         mealResponse.setFuud(testMeal.getFood().substring(3));
         mealResponse.setEstimatedTime(testMeal.getEstTime());
         return new ResponseEntity<MealResponse>(mealResponse, HttpStatus.OK);
