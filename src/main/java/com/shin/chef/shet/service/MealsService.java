@@ -18,7 +18,7 @@ public class MealsService {
     @Autowired
     private MealsRepository mealsRepository; //always start with private unless you need it to be public
 
-    private String addPrefix (String type, String name){
+    private String addPrefix(String type, String name) {
         return switch (TypeEnum.valueOf(type.toUpperCase())) { //TypeEnum is an enum we created with the types of meals
             case BREAKFAST -> "BF-" + name.toUpperCase();
             case LUNCH -> "LN-" + name.toUpperCase();
@@ -26,7 +26,7 @@ public class MealsService {
         };
     }
 
-    public ResponseEntity<Meal> saveMeal(Meal meal){
+    public ResponseEntity<Meal> saveMeal(Meal meal) {
         meal.setFood(addPrefix(meal.getType(), meal.getFood())); //setting the food name with a prefix
         meal.setType(meal.getType().toUpperCase()); //setting the type of  food in uppercase
         mealsRepository.save(meal);
@@ -34,17 +34,22 @@ public class MealsService {
         return new ResponseEntity<Meal>(meal, HttpStatus.CREATED);
     }
 
-    public int random(int len){
+    private int random(int len) {
         Random random = new Random();
         return random.nextInt(len);
     }
 
-    public ResponseEntity<MealResponse> randomMeal (String type){
+    public ResponseEntity<MealResponse> randomMeal(String type) {
         MealResponse mealResponse = new MealResponse();
         List<Meal> mealList = mealsRepository.findByType(type.toUpperCase());
         Meal testMeal = mealList.get(random(mealList.size()));
         mealResponse.setFuud(testMeal.getFood().substring(3));
         mealResponse.setEstimatedTime(testMeal.getEstTime());
         return new ResponseEntity<MealResponse>(mealResponse, HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> deleteMeal(String food, String type) {
+        mealsRepository.deleteById(addPrefix(type, food));
+        return new ResponseEntity<String>("Meal Deleted", HttpStatus.OK);
     }
 }

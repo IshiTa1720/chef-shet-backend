@@ -23,4 +23,9 @@ public class MealsController {
     public ResponseEntity<MealResponse> readRandomMeal(@RequestParam String type) {
         return mealsService.randomMeal(type);
     }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteMeal(@RequestParam String food, @RequestParam String type){
+        return mealsService.deleteMeal(food, type);
+    }
 }
